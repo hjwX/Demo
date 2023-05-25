@@ -12,6 +12,7 @@ public class Driver : MonoBehaviour
     {
         IdService idService = new IdService();
         _container.RegisterService(idService);
+        
     }
 
 
