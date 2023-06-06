@@ -10,20 +10,15 @@ namespace MKFramework
 
         public void RegisterService(IService service, bool overWriteExisting = true)
         {
-            var interfaceTypes = service.GetType()
-                .FindInterfaces((type, criteria) => type.GetInterfaces().Any(t => t == typeof(IService)), service)
-                .ToArray();
-
-            foreach (var type in interfaceTypes)
+            if (service.GetType().GetInterfaces().All(t => t != typeof(IService))) return;
+            var type = service.GetType();
+            if (!_allServices.ContainsKey(type))
             {
-                if (!_allServices.ContainsKey(type))
-                {
-                    _allServices.Add(type, service);
-                }
-                else if (overWriteExisting)
-                {
-                    _allServices[type] = service;
-                }
+                _allServices.Add(type, service);
+            }
+            else if (overWriteExisting)
+            {
+                _allServices[type] = service;
             }
         }
 
