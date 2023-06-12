@@ -63,7 +63,7 @@ namespace MKFramework.Pool.Unity.Editor
             if (isAccepted)
             {
                 var pools = DragAndDrop.objectReferences
-                    .Where(obj => obj.GetType() == typeof(GameObject))
+                    .Where(obj => obj is GameObject)
                     .Cast<GameObject>()
                     .Where(obj => PrefabUtility.GetPrefabType(obj) == PrefabType.Prefab)
                     .Except(_target.Pools.Select(_ => _.Prefab).ToList())
